@@ -1,176 +1,192 @@
-# Micro-Task — Civic Issue Reporting Platform
+# Jansamadhan — Civic Issue Reporting Platform
+
+> Jansamadhan (Jan = People, Samadhan = Solution) is a civic-tech platform designed to bridge the gap between citizens and authorities.
 
 A full-stack civic platform where residents report local issues and admins triage, manage, and resolve them.
 
-This README is updated with the latest **Admin Issue List UI improvements** (image thumbnail, preview modal, stronger hover clarity, and high-severity highlighting).
+This README includes the latest **Admin Issue List UI improvements** (image thumbnail, preview modal, stronger hover clarity, and high-severity highlighting).
 
 ---
 
-## Table of Contents
+## 📌 Table of Contents
 
-- [What’s New (Admin UI Update)](#whats-new-admin-ui-update)
-- [Core Features](#core-features)
-- [Tech Stack](#tech-stack)
-- [Architecture (High-Level)](#architecture-high-level)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Environment Variables](#environment-variables)
-- [API Reference](#api-reference)
-- [Roles & Permissions](#roles--permissions)
-- [Scripts](#scripts)
+- What’s New (Admin UI Update)
+- Core Features
+- Tech Stack
+- Architecture (High-Level)
+- Project Structure
+- Getting Started
+- Environment Variables
+- API Reference
+- Roles & Permissions
+- Scripts
 
 ---
 
-## What’s New (Admin UI Update)
+## 🚀 What’s New (Admin UI Update)
 
 ### 1) Admin Issue List Item Redesign
 
 Each issue item now uses a clean two-column layout:
 
-- **Left:** image thumbnail (`~96x96`), rounded corners, `object-cover`.
-- **Right:** title, description, and meta row (`Category | Department | Severity | Time`).
+- **Left:** image thumbnail (`~96x96`), rounded corners, `object-cover`
+- **Right:** title, description, and meta row (`Category | Department | Severity | Time`)
+
+---
 
 ### 2) Hover Clarity Improvement
 
 On issue-card hover:
 
-- all issue text transitions to white (title, description, category, department, severity, timestamp),
-- background darkens for strong contrast,
-- smooth transitions (`transition-colors`, `duration-200/300`).
-
-### 3) Click-to-Preview Image (New Modal)
-
-Admins can click the issue thumbnail to open a larger preview:
-
-- dark overlay backdrop,
-- centered large image (`object-contain`, preserved aspect ratio),
-- close button,
-- click outside to close,
-- Escape key to close,
-- smooth fade/zoom-in animation.
-
-Reusable component added:
-
-- `frontend/components/admin/image-preview-modal.tsx` → `ImagePreviewModal`
-
-### 4) High Severity Visual Priority
-
-For issues where `severityScore > 8.5`:
-
-- dark red gradient border wrapper,
-- stronger hover treatment,
-- hover text still turns white.
-
-### Updated Components
-
-- `frontend/components/admin/issue-list-item.tsx`
-- `frontend/components/admin/image-preview-modal.tsx`
-- `frontend/app/admin/issues/page.tsx` (passes `imageUrl` prop)
+- All text turns white  
+- Background darkens  
+- Smooth transitions (`transition-colors`, `duration-200/300`)
 
 ---
 
-## Core Features
+### 3) Click-to-Preview Image (Modal)
 
-### Resident Features
+Admins can click the image thumbnail:
 
-- Report issues with title, description, image, and location.
-- AI enrichment for category/department/severity workflow.
-- Feed with upvotes and comments.
-- Map view for reported issues.
-- Resolution verification via proof upvotes.
+- Dark overlay backdrop  
+- Centered large image  
+- Click outside / ESC to close  
+- Smooth animation  
 
-### Admin Features
+Reusable component:
 
-- Manage issue lifecycle (`reported` → `approved` → `in_progress` → `resolved`).
-- Edit issue metadata (severity, department, status).
-- Resolve issues with proof image upload.
-- Admin map and analytics dashboards.
-- Enhanced issue list UI (this update).
+```
+frontend/components/admin/image-preview-modal.tsx
+```
 
 ---
 
-## Tech Stack
+### 4) High Severity Highlight
+
+For `severityScore > 8.5`:
+
+- Red gradient border  
+- Stronger hover effect  
+- Priority visibility  
+
+---
+
+## 🧩 Core Features
+
+### 👤 Resident Features
+
+- Report issues with title, description, image, and location  
+- AI-based categorization (department, severity)  
+- Community feed with upvotes & comments  
+- Map-based issue visualization  
+- Resolution verification system  
+
+---
+
+### 🛠 Admin Features
+
+- Manage issue lifecycle  
+  (`reported → approved → in_progress → resolved`)  
+- Edit issue metadata  
+- Resolve issues with proof images  
+- Admin dashboard with analytics  
+- Enhanced issue UI  
+
+---
+
+## 🧑‍💻 Tech Stack
 
 ### Frontend
 
-- Next.js (App Router)
-- React + TypeScript
-- Tailwind CSS
-- Clerk (Auth)
-- Lucide React (Icons)
-- Leaflet (Map)
+- Next.js (App Router)  
+- React + TypeScript  
+- Tailwind CSS  
+- Clerk (Authentication)  
+- Leaflet (Maps)  
+- Lucide React (Icons)  
+
+---
 
 ### Backend
 
-- Node.js + Express
-- MongoDB + Mongoose
-- Clerk Express SDK
-- Cloudinary (image hosting)
-- n8n + ML service integration (issue enrichment)
+- Node.js + Express  
+- MongoDB (Native Driver / Mongoose hybrid)  
+- Clerk Express SDK  
+- Cloudinary (Image Upload)  
+- n8n + ML Service (AI enrichment)  
 
 ---
 
-## Architecture (High-Level)
+## 🧠 Architecture (High-Level)
 
-1. Client submits/report issue.
-2. Backend enriches data (AI + rules) and stores in MongoDB.
-3. Admin reviews and updates issue status.
-4. Admin can resolve with proof image.
-5. Residents verify resolution.
+1. User submits issue  
+2. Backend processes + enriches (AI + rules)  
+3. Data stored in MongoDB  
+4. Admin reviews & updates status  
+5. Admin resolves with proof  
+6. Users verify resolution  
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```text
-Micro-Task/
-├── backend/                  # Express API + models + controllers
-├── frontend/                 # Next.js app
-│   ├── app/                  # App Router pages
-│   ├── components/           # Reusable UI components
-│   │   └── admin/            # Admin-specific components
+Jansamadhan/
+├── backend/
+│   ├── config/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── utils/
+│   └── index.js
+│
+├── frontend/
+│   ├── app/
+│   ├── components/
+│   │   └── admin/
 │   │       ├── issue-list-item.tsx
 │   │       └── image-preview-modal.tsx
-│   └── lib/                  # Helpers/utilities
+│   ├── lib/
+│   └── next.config.ts
+│
 └── README.md
 ```
 
 ---
 
-## Getting Started
+## ⚙️ Getting Started
 
-### Prerequisites
+### 📌 Prerequisites
 
-- Node.js 18+
-- npm 9+
-- MongoDB database
-- Clerk keys
-- Cloudinary credentials
+- Node.js 18+  
+- npm 9+  
+- MongoDB Database  
+- Clerk API Keys  
+- Cloudinary Credentials  
 
-### One-Time Setup (Monorepo Root)
+---
+
+### 🔧 Installation
 
 ```bash
 npm install
 npm run install:all
 ```
 
-Create env files:
+---
 
-- `backend/.env` from `backend/.env.example`
-- `frontend/.env` from `frontend/.env.example`
-
-### Run Full Stack Together (Monorepo Root)
+### ▶️ Run Full Stack
 
 ```bash
 npm run dev
 ```
 
-This starts:
+- Backend → http://localhost:5500  
+- Frontend → http://localhost:3000  
 
-- Backend on `http://localhost:5500`
-- Frontend on `http://localhost:3000`
+---
 
-### Backend
+### ▶️ Run Backend Only
 
 ```bash
 cd backend
@@ -178,9 +194,9 @@ npm install
 npm run dev
 ```
 
-Default backend URL: `http://localhost:5500`
+---
 
-### Frontend
+### ▶️ Run Frontend Only
 
 ```bash
 cd frontend
@@ -188,77 +204,91 @@ npm install
 npm run dev
 ```
 
-Default frontend URL: `http://localhost:3000`
-
 ---
 
-## Environment Variables
+## 🔐 Environment Variables
 
 ### Backend (`backend/.env`)
 
 ```env
 PORT=5500
-MONGO_URI=...
-CLERK_PUBLISHABLE_KEY=...
-CLERK_SECRET_KEY=...
-CLOUDINARY_URL=...
-CLOUDINARY_CLOUD_NAME=...
-CLOUDINARY_API_KEY=...
-CLOUDINARY_API_SECRET=...
-N8N_WEBHOOK_URL=...
+MONGO_URI=
+CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+CLOUDINARY_URL=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+N8N_WEBHOOK_URL=
 ML_SERVICE_URL=http://127.0.0.1:8000/analyze-severity
 ML_CONFIDENCE_THRESHOLD=0.80
 ```
 
+---
+
 ### Frontend (`frontend/.env`)
 
 ```env
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...
-CLERK_SECRET_KEY=...
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/feed
 NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/feed
 NEXT_PUBLIC_BACKEND_URL=http://localhost:5500
-SARVAM_API_KEY=...
+SARVAM_API_KEY=
 ```
 
 ---
 
-## API Reference
+## 🔗 API Reference
 
-### Issues
+### 📍 Issues
 
-- `POST /api/issues/preview` — AI-enriched preview.
-- `POST /api/issues` — create issue.
-- `GET /api/issues` — list issues.
-- `PATCH /api/issues/:id` — admin update.
-- `PATCH /api/issues/:id/resolve` — admin resolves with proof.
-- `PATCH /api/issues/:id/upvote` — upvote toggle.
-- `PATCH /api/issues/:id/verify-upvote` — verification upvote.
-- `GET /api/issues/:id/comments` — comments list.
-- `POST /api/issues/:id/comments` — add comment.
-
-### Users
-
-- `POST /api/users/sync`
-- `GET /api/users/me`
-
-### Events
-
-- `GET /api/events`
-- `POST /api/events`
-- `PATCH /api/events/:id/interested`
-- `PATCH /api/events/:id/participating`
+- `POST /api/issues/preview` → AI preview  
+- `POST /api/issues` → create issue  
+- `GET /api/issues` → list issues  
+- `PATCH /api/issues/:id` → update  
+- `PATCH /api/issues/:id/resolve` → resolve  
+- `PATCH /api/issues/:id/upvote` → upvote  
+- `PATCH /api/issues/:id/verify-upvote` → verify  
+- `GET /api/issues/:id/comments`  
+- `POST /api/issues/:id/comments`  
 
 ---
 
-## Roles & Permissions
+### 👤 Users
 
-- **Resident:** report, view, comment, upvote, verify.
-- **Admin:** everything residents can do + edit/update/resolve issues + admin dashboards.
+- `POST /api/users/sync`  
+- `GET /api/users/me`  
 
 ---
 
-## Scripts
+### 📅 Events
+
+- `GET /api/events`  
+- `POST /api/events`  
+- `PATCH /api/events/:id/interested`  
+- `PATCH /api/events/:id/participating`  
+
+---
+
+## 🔑 Roles & Permissions
+
+### Resident
+- Report issues  
+- Comment  
+- Upvote  
+- Verify resolution  
+
+### Admin
+- Full access  
+- Manage issues  
+- Update status  
+- Resolve with proof  
+- Access analytics  
+
+---
+
+## 📜 Scripts
 
 ### Backend
 
@@ -266,6 +296,8 @@ SARVAM_API_KEY=...
 npm run dev
 npm start
 ```
+
+---
 
 ### Frontend
 
@@ -278,7 +310,22 @@ npm run lint
 
 ---
 
-## Notes
+## 📌 Notes
 
-- This update is UI-focused and does not change backend API contracts.
-- For best admin UX, ensure issue records include valid `imageUrl`.
+- UI update only (no backend API changes)  
+- Ensure valid `imageUrl` for best admin experience  
+
+---
+
+## ⭐ Future Enhancements
+
+- Real-time notifications  
+- AI duplicate detection  
+- Government API integration  
+- Mobile app version  
+
+---
+
+## 💡 Author
+
+Built with ❤️ for solving real civic problems.
