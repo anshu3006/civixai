@@ -111,8 +111,8 @@ function buildPopup(issue: AnyIssue): string {
 export function IssueMap({
   issues,
   userLocation,
-  defaultCenter = { lat: 20.5937, lng: 78.9629 }, // India center as fallback
-  defaultZoom = 13,
+  defaultCenter = { lat: 12.9716, lng: 77.5946 }, // Bangalore, India center
+  defaultZoom = 12,
   height = "100%",
 }: IssueMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);

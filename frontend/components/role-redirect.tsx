@@ -17,8 +17,8 @@ export function RoleRedirect() {
     if (role === "admin") {
       router.replace("/admin");
     } else {
-      // resident (or any other role) → feed
-      router.replace("/feed");
+      // resident (or any other role) → dashboard
+      router.replace("/dashboard");
     }
   }, [role, loading, router]);
 

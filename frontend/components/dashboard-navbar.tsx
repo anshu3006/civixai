@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { SignedIn, UserButton, SignInButton, SignUpButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
+import { Bell } from "lucide-react";
 
 function FlagIcon() {
   return (
@@ -17,9 +18,9 @@ function FlagIcon() {
   );
 }
 
-export function Navbar() {
+export function DashboardNavbar() {
   return (
-    <header className="w-full bg-[#1a237e] text-white z-50">
+    <header className="w-full bg-[#1a237e] text-white z-50 shadow-md">
       {/* Top Accessibility Row */}
       <div className="w-full bg-[#11185b] border-b border-white/10 text-[11px] font-medium py-1.5 px-6 hidden sm:flex justify-end gap-5">
          <button className="hover:text-white/80 transition-colors">Skip to main content</button>
@@ -33,7 +34,7 @@ export function Navbar() {
       </div>
 
       {/* Main Nav */}
-      <div className="mx-auto flex h-20 max-w-[1400px] items-center justify-between px-6">
+      <div className="flex h-[72px] items-center justify-between px-6">
         
         {/* Left Section: Logos */}
         <div className="flex items-center gap-6">
@@ -71,33 +72,29 @@ export function Navbar() {
         </nav>
 
         {/* Right Section: Actions */}
-        <div className="flex items-center gap-4">
-          <div className="hidden sm:flex items-center gap-1 text-sm font-semibold bg-white/10 px-3 py-1.5 rounded border border-white/20 cursor-pointer hover:bg-white/20 transition-colors">
+        <div className="flex items-center gap-5">
+          <div className="hidden sm:flex items-center gap-1 text-sm font-semibold bg-[#2a3699] px-3 py-1.5 rounded border border-white/10 cursor-pointer hover:bg-[#3442a8] transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-languages"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
             <span className="ml-1">EN English</span>
           </div>
 
-          <SignedIn>
-            <UserButton
-              afterSignOutUrl="/"
-              appearance={{
-                elements: { avatarBox: "h-9 w-9 border-2 border-white/20" },
-              }}
-            />
-          </SignedIn>
-          
-          <div className="hidden sm:flex items-center gap-3">
-             <SignInButton mode="modal">
-               <button className="rounded px-5 py-2 text-sm font-bold border border-white/40 hover:bg-white/10 transition-colors">
-                 Login
-               </button>
-             </SignInButton>
-             <SignUpButton mode="modal">
-               <button className="rounded bg-[#e65100] px-5 py-2 text-sm font-bold border border-transparent shadow hover:bg-[#ef6c00] transition-colors">
-                 Register
-               </button>
-             </SignUpButton>
+          <div className="relative cursor-pointer hover:text-white/80 transition-colors p-2 bg-[#2a3699] rounded-md border border-white/10 hidden sm:block">
+            <Bell className="h-[18px] w-[18px]" />
+            <span className="absolute top-1 right-1 flex h-3 w-3 items-center justify-center rounded-full bg-red-500 text-[8px] font-bold text-white shadow-sm ring-2 ring-[#1a237e]">
+              8
+            </span>
           </div>
+
+          <Link href="/dashboard/file-complaint" className="hidden sm:flex text-sm font-bold bg-[#e65100] text-white px-4 py-2 rounded shadow hover:bg-[#ef6c00] transition-colors border border-transparent">
+            + File Complaint
+          </Link>
+
+          <UserButton
+             afterSignOutUrl="/"
+             appearance={{
+               elements: { avatarBox: "h-9 w-9 border-2 border-[#ffd54f] shadow-sm ml-2" },
+             }}
+          />
         </div>
       </div>
     </header>

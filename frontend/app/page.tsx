@@ -1,262 +1,98 @@
 import Image from "next/image";
-import {
-  ClipboardCheck,
-  Bell,
-  BarChart3,
-} from "lucide-react";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import Link from "next/link";
+import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
 import { Navbar } from "@/components/navbar";
-import { GoogleSignInButton } from "@/components/google-sign-in-button";
-import { CTAButton } from "@/components/cta-button";
 import { UserSync } from "@/components/user-sync";
 import { RoleRedirect } from "@/components/role-redirect";
 
-/* ─── Hero ─── */
-function Hero() {
+function IndianFlag() {
   return (
-    <section className="flex flex-col items-center px-6 pt-20 pb-16 text-center">
-      <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight sm:text-5xl">
-        Civic engagement,
-        <br />
-        Prioritise what matters.
-      </h1>
-      <p className="mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
-        Spot a broken streetlight? A faded notice? Pick up a quick civic task,
-        verify it in minutes, and make a real difference — no long commitments
-        required.
-      </p>
-
-      {/* Sign in with Google — triggers Clerk OAuth */}
-      <GoogleSignInButton className="mt-8" />
-    </section>
-  );
-}
-
-/* ─── Hero Illustration Placeholder ─── */
-function HeroImage() {
-  return (
-    <section className="flex justify-center px-6 pb-8">
-      <div className="relative h-72 w-full max-w-4xl overflow-hidden sm:h-96">
-        <Image
-          src="/imgs/civic.jpeg"
-          alt="Civic micro-tasks"
-          fill
-          className="object-contain"
-          priority
-        />
-      </div>
-    </section>
-  );
-}
-
-
-
-/* ─── Feature Row (alternating layout) ─── */
-function FeatureRow({
-  heading,
-  description,
-  icon: Icon,
-  imageSrc,
-  imageAlt,
-  reversed = false,
-}: {
-  heading: string;
-  description: string;
-  icon: React.ComponentType<{ className?: string }>;
-  imageSrc?: string;
-  imageAlt?: string;
-  reversed?: boolean;
-}) {
-  return (
-    <div
-      className={`flex flex-col items-center gap-10 md:flex-row ${
-        reversed ? "md:flex-row-reverse" : ""
-      }`}
-    >
-      {/* Text */}
-      <div className="flex-1 space-y-3">
-        <h3 className="text-2xl font-bold tracking-tight">{heading}</h3>
-        <p className="text-muted-foreground leading-relaxed">{description}</p>
-      </div>
-
-      {/* Image / Placeholder */}
-      {imageSrc ? (
-        <div className="w-full flex-1">
-          <Image
-            src={imageSrc}
-            alt={imageAlt ?? heading}
-            width={1200}
-            height={800}
-            className="h-auto w-full max-h-80 rounded-2xl object-contain"
-          />
+    <div className="flex flex-col h-[20px] w-[30px] rounded-[2px] overflow-hidden border border-white/20">
+      <div className="flex-1 bg-[#FF9933]"></div>
+      <div className="flex-1 bg-white flex items-center justify-center">
+        <div className="h-2 w-2 rounded-full border border-[#000080] flex items-center justify-center">
+          <div className="h-[2px] w-[2px] rounded-full bg-[#000080]"></div>
         </div>
-      ) : (
-        <div className="flex h-64 w-full flex-1 items-center justify-center rounded-2xl bg-muted md:h-72">
-          <Icon className="h-14 w-14 text-muted-foreground/60 stroke-[1.2]" />
-        </div>
-      )}
+      </div>
+      <div className="flex-1 bg-[#138808]"></div>
     </div>
   );
 }
 
-/* ─── Features Section ─── */
-function Features() {
+function Hero() {
   return (
-    <section id="features" className="mx-auto max-w-5xl space-y-24 px-6 pt-8 pb-24">
-      <FeatureRow
-        heading="Quick micro-tasks."
-        description="View and pick up civic tasks near you — report broken streetlights, verify public notices, or check local facilities. Each task takes just a few focused minutes."
-        icon={ClipboardCheck}
-        imageSrc="/imgs/quick%20micro%20task.png"
-        imageAlt="Quick micro-tasks"
-      />
-      <FeatureRow
-        heading="One For Everything"
-        description="Stay organized and in control — discover tasks, track your progress, receive real-time updates, manage submissions, and participate in community initiatives all from a single, seamless platform."
-        icon={Bell}
-        imageSrc="/imgs/1fe.jpeg"
-        imageAlt="One for everything"
-        reversed
-      />
-      <FeatureRow
-        heading="Community insights."
-        description="Track your contributions with clear visual reports. See how your micro-actions add up to measurable improvements in your neighbourhood."
-        icon={BarChart3}
-        imageSrc="/imgs/analy.jpeg"
-        imageAlt="Community insights"
-      />
-    </section>
-  );
-}
-
-/* ─── How It Works ─── */
-function HowItWorks() {
-  const steps = [
-    {
-      step: "01",
-      title: "Sign in",
-      desc: "Register using your unique house number and log in to your community account — secure and simple.",
-    },
-    {
-      step: "02",
-      title: "Report an Issue",
-      desc: "Upload a photo, add the location and description, and select the category. Suggest the relevant department if needed.",
-    },
-    {
-      step: "03",
-      title: "AI Analysis & Community Support",
-      desc: "Our AI analyzes the issue and assigns a severity score. Residents can upvote and discuss the issue to help prioritize it.",
-    },
-    {
-      step: "04",
-      title: "Admin Action & Resolution",
-      desc: "The admin reviews the issue, assigns the department, updates the status, and ensures it is resolved. Progress is transparent and visible to everyone.",
-    },
-  ];
-
-  return (
-    <section
-      id="how-it-works"
-      className="border-t border-border/40 bg-muted/40 py-24"
-    >
-      <div className="mx-auto max-w-5xl px-6">
-        <h2 className="text-center text-3xl font-bold tracking-tight">
-          How it works.
+    <section className="relative flex flex-col items-center px-6 pt-28 pb-32 text-center z-10 w-full flex-1 justify-center">
+      <div className="flex flex-col items-center justify-center mb-6">
+        <div className="mb-4">
+          <IndianFlag />
+        </div>
+        <h1 className="text-4xl font-black tracking-tight text-[#ffd54f] sm:text-5xl md:text-5xl drop-shadow-md">
+          JanSamadhan
+        </h1>
+        <h2 className="mt-2 text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-5xl drop-shadow-md">
+          Smart Grievance Portal for Citizens
         </h2>
-        <p className="mx-auto mt-3 max-w-lg text-center text-muted-foreground">
-          Get started in under a minute — contribute to your community in just a
-          few taps.
-        </p>
+      </div>
+      <p className="mt-6 max-w-2xl text-base text-white/90 sm:text-lg md:text-xl font-medium leading-relaxed drop-shadow">
+        Report civic issues, track resolutions, and hold local government
+        accountable. From Gram Panchayat to State — every complaint
+        reaches the right authority.
+      </p>
 
-        <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-14">
-          {steps.map((s) => (
-            <div key={s.step} className="space-y-3">
-              <span className="text-3xl font-extrabold text-muted-foreground/40">
-                {s.step}
-              </span>
-              <h4 className="text-lg font-semibold">{s.title}</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {s.desc}
-              </p>
-            </div>
-          ))}
+      <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <SignUpButton mode="modal">
+          <button className="rounded-md bg-[#e65100] px-8 py-3.5 text-base font-bold text-white shadow-md hover:bg-[#ef6c00] transition-colors">
+            Register as Citizen
+          </button>
+        </SignUpButton>
+        <Link
+          href="/public-feed"
+          className="rounded-md border-2 border-white/60 px-8 py-3 text-base font-bold text-white hover:bg-white/10 transition-colors backdrop-blur-sm"
+        >
+          View Public Feed
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+function StatsBar() {
+  return (
+    <section className="bg-[#e65100] w-full py-8 mt-auto relative z-10 border-t border-[#ff7043]/30 shadow-[0_-4px_20px_rgba(0,0,0,0.15)]">
+      <div className="mx-auto max-w-6xl px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+        <div className="flex flex-col items-center justify-center space-y-1">
+          <span className="text-4xl font-black drop-shadow-sm text-white">50+</span>
+          <span className="text-sm font-medium text-white/90 tracking-wide">Districts Covered</span>
+        </div>
+        <div className="flex flex-col items-center justify-center space-y-1">
+          <span className="text-4xl font-black drop-shadow-sm text-white">12</span>
+          <span className="text-sm font-medium text-white/90 tracking-wide">Govt Departments</span>
+        </div>
+        <div className="flex flex-col items-center justify-center space-y-1">
+          <span className="text-4xl font-black drop-shadow-sm text-white">7 Levels</span>
+          <span className="text-sm font-medium text-white/90 tracking-wide">Location Hierarchy</span>
+        </div>
+        <div className="flex flex-col items-center justify-center space-y-1">
+          <span className="text-4xl font-black drop-shadow-sm text-white">14</span>
+          <span className="text-sm font-medium text-white/90 tracking-wide">Complaint Categories</span>
         </div>
       </div>
     </section>
   );
 }
 
-/* ─── CTA Section ─── */
-function CTA() {
-  return (
-    <section className="py-24 text-center">
-      <div className="mx-auto max-w-2xl px-6">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          Ready to make a difference?
-        </h2>
-        <p className="mt-4 text-muted-foreground">
-          Small efforts. Measurable improvements. Join the civic micro-task
-          movement today.
-        </p>
-        <CTAButton className="mt-8" />
-      </div>
-    </section>
-  );
-}
-
-/* ─── Footer ─── */
-function Footer() {
-  return (
-    <footer id="contact" className="border-t border-border/40 py-12">
-      <div className="mx-auto grid max-w-5xl gap-10 px-6 sm:grid-cols-4">
-        <div>
-          <span className="text-lg font-bold">Civix.</span>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Bridging residents and local bodies through verified micro-actions.
-          </p>
-        </div>
-
-        <div>
-          <h5 className="mb-3 text-sm font-semibold">Company</h5>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><a href="#" className="hover:text-foreground transition">About</a></li>
-            <li><a href="#" className="hover:text-foreground transition">Careers</a></li>
-            <li><a href="#" className="hover:text-foreground transition">Press</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h5 className="mb-3 text-sm font-semibold">Product</h5>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><a href="#features" className="hover:text-foreground transition">Features</a></li>
-            <li><a href="#how-it-works" className="hover:text-foreground transition">How It Works</a></li>
-            <li><a href="#" className="hover:text-foreground transition">Pricing</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h5 className="mb-3 text-sm font-semibold">Support</h5>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><a href="#" className="hover:text-foreground transition">Help Center</a></li>
-            <li><a href="#" className="hover:text-foreground transition">Contact</a></li>
-            <li><a href="#" className="hover:text-foreground transition">Legal</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="mx-auto mt-10 max-w-5xl border-t border-border/40 px-6 pt-6">
-        <p className="text-xs text-muted-foreground">
-          &copy; {new Date().getFullYear()} Civix. All rights reserved.
-        </p>
-      </div>
-    </footer>
-  );
-}
-
-/* ─── Page ─── */
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#1a237e] relative flex flex-col font-sans selection:bg-[#ffd54f] selection:text-[#1a237e]">
+      {/* Background pattern (plus signs) */}
+      <div 
+        className="absolute inset-0 z-0 opacity-[0.12] pointer-events-none mix-blend-overlay"
+        style={{
+          backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19 19v-4h2v4h4v2h-4v4h-2v-4h-4v-2h4z' fill='%23ffffff' fill-rule='evenodd'/%3E%3C/svg%3E\")",
+          backgroundSize: "40px"
+        }}
+      ></div>
+      
       <UserSync />
 
       {/* Signed-in users are redirected to their dashboard immediately */}
@@ -267,14 +103,10 @@ export default function Home() {
       {/* Only show the landing page to visitors who are NOT signed in */}
       <SignedOut>
         <Navbar />
-        <main>
+        <main className="flex-1 flex flex-col items-center w-full min-h-[calc(100vh-130px)]">
           <Hero />
-          <HeroImage />
-          <Features />
-          <HowItWorks />
-          <CTA />
+          <StatsBar />
         </main>
-        <Footer />
       </SignedOut>
     </div>
   );

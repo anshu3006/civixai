@@ -54,7 +54,8 @@ export async function syncUserToBackend(token: string) {
       },
     });
   } catch (err) {
-    console.error("Failed to sync user to backend:", err);
+    // console.error("Failed to sync user to backend:", err);
+    // Suppressed to prevent Next.js overlay during static frontend development
   }
 }
 
