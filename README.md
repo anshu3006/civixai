@@ -123,7 +123,7 @@ For issues where `severityScore > 8.5`:
 ## Project Structure
 
 ```text
-Micro-Task/
+jansamadhan/
 ├── backend/                  # Express API + models + controllers
 ├── frontend/                 # Next.js app
 │   ├── app/                  # App Router pages
